@@ -18,19 +18,17 @@
     </header>
 
     <!-- Background Audio -->
-    <audio id="backgroundMusic" loop>
+    <audio id="backgroundMusic" autoplay loop>
         <source src="img/audio.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
-        <!-- Notice Board -->
         <aside class="notice-board">
             <video class="notice-video" autoplay muted loop>
                 <source src="img/welcome.mp4" type="video/mp4">
             </video>
         </aside>
 
-        <!-- Main Content -->
         <main>
             <div class="gallery">
                 <div class="item">
@@ -113,17 +111,13 @@
         document.addEventListener("DOMContentLoaded", () => {
             const backgroundMusic = document.getElementById("backgroundMusic");
 
-            // Try playing the audio when the page loads
+            // Force audio to play
             backgroundMusic.play().catch(error => {
-                console.log("Autoplay blocked. Trying to play on user interaction.");
+                console.log("Autoplay blocked by browser:", error);
             });
 
-            // If autoplay is blocked, play when the user interacts with the page
-            document.addEventListener("click", () => {
-                if (backgroundMusic.paused) {
-                    backgroundMusic.play();
-                }
-            });
+            // Some browsers need audio to start muted, then unmute it
+            backgroundMusic.muted = false;
         });
     </script>
 </body>

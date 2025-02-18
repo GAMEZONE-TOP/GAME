@@ -10,34 +10,24 @@
     <header>
         <img src="img/head.png" alt="Game Zone Header Image" class="header-image">
         <div class="topup-section">
-            
             <a href="https://www.facebook.com/profile.php?id=61555942654700" target="_blank" class="facebook-link" title="Visit us on Facebook">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
                 <span class="topup-text">CONTACT</span>
             </a>
-           
-            <!-- Combined Button with Audio Icon -->
-        <button id="muteButton" class="mute-button" title="Mute/Unmute Audio">
-         <img id="audioIcon" src="img/audio.png" alt="Audio Icon" class="audio-icon">
-            </button>
-
         </div>
     </header>
-    <audio id="backgroundMusic" loop autoplay>
+
+    <!-- Background Audio -->
+    <audio id="backgroundMusic" loop>
         <source src="img/audio.mp3" type="audio/mpeg">
-      </audio>
+    </audio>
 
     <div class="container">
         <!-- Notice Board -->
         <aside class="notice-board">
             <video class="notice-video" autoplay muted loop>
                 <source src="img/welcome.mp4" type="video/mp4">
-                
             </video>
-<!--             <h2>CASH TAG</h2>
-            <img src="img/tag.jpg" alt="Notice Board Image" class="notice-image"> -->
-            
-
         </aside>
 
         <!-- Main Content -->
@@ -118,33 +108,23 @@
             </div>
         </main>
     </div>
+
     <script>
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const audioIcon = document.getElementById('audioIcon');
-        const muteButton = document.getElementById('muteButton');
-    
-        // Ensure audio plays on page load
-        window.addEventListener('load', () => {
+        document.addEventListener("DOMContentLoaded", () => {
+            const backgroundMusic = document.getElementById("backgroundMusic");
+
+            // Try playing the audio when the page loads
             backgroundMusic.play().catch(error => {
-                console.log("Autoplay was blocked by the browser:", error);
+                console.log("Autoplay blocked. Trying to play on user interaction.");
+            });
+
+            // If autoplay is blocked, play when the user interacts with the page
+            document.addEventListener("click", () => {
+                if (backgroundMusic.paused) {
+                    backgroundMusic.play();
+                }
             });
         });
-    
-        // Toggle mute/unmute and update the icon
-        muteButton.addEventListener('click', () => {
-            backgroundMusic.muted = !backgroundMusic.muted;
-    
-            // Update the icon based on the mute status
-            if (backgroundMusic.muted) {
-                audioIcon.src = 'img/off.png'; // Path to your muted icon
-                muteButton.title = 'Unmute Audio';
-            } else {
-                audioIcon.src = 'img/audio.png'; // Path to your unmuted icon
-                muteButton.title = 'Mute Audio';
-            }
-        });
     </script>
-    
-    
 </body>
 </html>
